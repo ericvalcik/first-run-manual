@@ -99,11 +99,7 @@ img {
 }
 
 .mainCol {
-  display: flex;
-  gap: 5px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  @apply flex flex-col max-w-2xl mx-12 gap-2;
 }
 
 p {
@@ -175,6 +171,14 @@ button:hover {
   background-position: left center;
 }
 
-input {
-  @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-baseOrange focus:border-baseOrange focus-visible:outline-baseOrange block w-full p-2.5;
+.form-select {
+  @apply bg-gray-50 border border-gray-300 text-gray-900 text-[1rem] rounded-lg focus:border-base-orange focus:border-2 focus:outline-base-orange block w-full p-2.5;
+}
+
+input.text-input {
+  @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-base-orange focus:border-base-orange block w-full p-2.5;
+}
+
+.invalid-feedback {
+    @apply text-red-500 text-sm;
 }

@@ -1,7 +1,7 @@
 export type State = {
   iref?: number
   pp?: number
-  sensortype?: string
+  sensortype?: 'sincos' | 'hall' | 'sensorless'
   mtemplo?: number
   mtemphi?: number
   ubmin?: number

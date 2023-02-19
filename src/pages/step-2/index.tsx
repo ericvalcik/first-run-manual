@@ -57,10 +57,11 @@ export default function Step1() {
               <div className="w-40">
                 <input
                   type="number"
-                  className={`form-control${errors.iref ? ' is-invalid' : ''} w-full`}
+                  className={`form-control${errors.iref ? ' is-invalid' : ''} w-full text-input`}
                   id="irefInput"
                   aria-describedby="passwordHelpInline"
                   {...register('iref', { required: true, valueAsNumber: true })}
+                  defaultValue={state.iref}
                 />
               </div>
               <div className="pl-4">
@@ -76,9 +77,10 @@ export default function Step1() {
               <div className="w-40">
                 <input
                   type="number"
-                  className={`form-control${errors.magnets ? ' is-invalid' : ''} w-full`}
+                  className={`form-control${errors.magnets ? ' is-invalid' : ''} w-full text-input`}
                   id="magnetsInput"
                   aria-describedby="passwordHelpInline"
+                  defaultValue={state.pp ? state.pp * 2 : undefined}
                   {...register('magnets', {
                     required: true,
                     valueAsNumber: true,
