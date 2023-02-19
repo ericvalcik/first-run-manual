@@ -1,6 +1,6 @@
-/* @tailwind base;
+@tailwind base;
 @tailwind components;
-@tailwind utilities; */
+@tailwind utilities;
 
 @font-face {
   font-family: 'Rubik';
@@ -125,8 +125,6 @@ p {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 18px;
-  margin-top: 0;
-  margin-bottom: 0;
 }
 
 label {
@@ -157,7 +155,7 @@ button {
     rgba(197, 31, 48, 1) 1%,
     rgba(241, 101, 36, 1) 51%,
     rgba(197, 31, 48, 1) 100%
-  );
+  ) !important;
   background-size: 200% auto;
   background-position: right center;
   color: white;
@@ -175,4 +173,8 @@ button {
 button:hover {
   transform: scale(1.05);
   background-position: left center;
+}
+
+input {
+  @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-baseOrange focus:border-baseOrange focus-visible:outline-baseOrange block w-full p-2.5;
 }

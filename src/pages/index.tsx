@@ -6,7 +6,7 @@ import '@/app/globals.css'
 
 export default function Hello() {
   return (
-    <div className="mainCol" style={{ alignItems: 'center' }}>
+    <div className="flex flex-col max-w-2xl mx-12 gap-2 items-center">
       {/* <img
         alt="logo-small"
         src={logo}
@@ -14,7 +14,7 @@ export default function Hello() {
         style={{ marginBottom: '20px' }}
       /> */}
       <Image src={logo} alt="logo-small" className="logo" style={{ marginBottom: '20px', objectFit: 'contain' }} />
-      <p>Thanks for buying a product from us!</p>
+      <p className="mb-4">Thanks for buying a product from us!</p>
       <Link href="/step-1">
         <button type="button" style={{ marginBottom: '10px' }}>
           First setup
