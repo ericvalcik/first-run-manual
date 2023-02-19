@@ -1,7 +1,7 @@
 import '@/app/globals.css'
 
 import { useForm } from 'react-hook-form'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { StateContext } from '@/pages/_app'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
@@ -17,6 +17,10 @@ const Step4 = () => {
   const [sensor, setSensor] = useState<boolean>(false)
   const router = useRouter()
 
+  useEffect(() => {
+    setSensor(!!state.mtemphi || !!state.mtemplo)
+  }, [state.mtemphi, state.mtemplo])
+
   const {
     register,
     handleSubmit,
@@ -24,8 +28,8 @@ const Step4 = () => {
   } = useForm<FormValues>()
 
   const onSubmit = handleSubmit((data) => {
-    state.mtemplo = data.mtemplo ?? 0
-    state.mtemphi = data.mtemphi ?? 0
+    state.mtemplo = data.mtemplo ?? undefined
+    state.mtemphi = data.mtemphi ?? undefined
     setState(state)
     if (state.sensortype === 'sensorless' && state.mtemplo === 0) {
       router.push('/step-6')
@@ -51,6 +55,7 @@ const Step4 = () => {
               onChange={(e) => {
                 setSensor(e.target.checked)
               }}
+              defaultChecked={!!state.mtemphi || !!state.mtemplo}
             />
             <label className="ml-4" htmlFor="temperatureSensor">
               Temperature sensor
@@ -71,6 +76,7 @@ const Step4 = () => {
                 placeholder="value in [Ohm]"
                 className={`form-control${errors.mtemplo ? ' is-invalid' : ''} text-input`}
                 id="mtemploInput"
+                defaultValue={state.mtemplo}
                 {...register('mtemplo', {
                   valueAsNumber: true,
                   required: sensor
@@ -93,6 +99,7 @@ const Step4 = () => {
                 placeholder="value in [Ohm]"
                 className={`form-control${errors.mtemphi ? ' is-invalid' : ''} text-input w-40`}
                 id="mtemplhiInput"
+                defaultValue={state.mtemphi}
                 {...register('mtemphi', {
                   valueAsNumber: true,
                   required: sensor

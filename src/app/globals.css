@@ -172,7 +172,7 @@ button:hover {
 }
 
 .form-select {
-  @apply bg-gray-50 border border-gray-300 text-gray-900 text-[1rem] rounded-lg focus:border-base-orange focus:border-2 focus:outline-base-orange block w-full p-2.5;
+  @apply bg-gray-50 border border-gray-300 text-gray-900 text-[1rem] rounded-lg focus:border-base-orange focus:ring-base-orange block w-full p-2.5;
 }
 
 input.text-input {
