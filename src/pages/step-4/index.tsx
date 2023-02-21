@@ -64,11 +64,9 @@ const Step4 = () => {
         </div>
         {sensor && (
           <>
-            <div className="col-6">
-              <label htmlFor="mtemploInput" className="form-label">
-                When to start the limitation
-              </label>
-            </div>
+            <label htmlFor="mtemploInput" className="form-label">
+              When to start the limitation
+            </label>
             <div className="flex gap-2 items-center">
               <input
                 type="number"
@@ -82,16 +80,14 @@ const Step4 = () => {
                   required: sensor
                 })}
               />
-              <div className="col-1">Ohm</div>
+              Ohm
             </div>
             <div className={clsx('invalid-feedback', !errors.mtemplo && 'invisible')}>
               If you want to use a temperature sensor, these fields are required.
             </div>
-            <div className="col-6">
-              <label htmlFor="mtemphiInput" className="form-label">
-                When to fully limit (no power to motor)
-              </label>
-            </div>
+            <label htmlFor="mtemphiInput" className="form-label">
+              When to fully limit (no power to motor)
+            </label>
             <div className="flex gap-2 items-center">
               <input
                 type="number"
@@ -105,7 +101,7 @@ const Step4 = () => {
                   required: sensor
                 })}
               />
-              <div className="col-1 grow-0">Ohm</div>
+              <div className="grow-0">Ohm</div>
             </div>
             <div className={clsx('invalid-feedback', !errors.mtemphi && 'invisible')}>
               If you want to use a temperature sensor, these fields are required.
