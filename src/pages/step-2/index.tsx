@@ -31,7 +31,6 @@ export default function Step1() {
     state.iref = data.iref
     state.pp = data.magnets / 2
     setState(state)
-    console.log(state)
     router.push('/step-3')
   })
 

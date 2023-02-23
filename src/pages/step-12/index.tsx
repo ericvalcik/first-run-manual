@@ -8,11 +8,18 @@ const Step12 = () => {
 
   const runMotor = async () => {
     setDisabled(true)
+    fetch('localhost:8000/', {
+      method: 'GET'
+    }).then((res) => {
+      // eslint-disable-next-line no-console
+      res.json().then((data) => console.log(data))
+    })
     setTimeout(() => {
       setDisabled(false)
     }, 1000)
     try {
       if (value === 0) {
+        // TODO motor stuff
         // await exec('stop');
       } else {
         // await run(value);
