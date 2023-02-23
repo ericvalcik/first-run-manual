@@ -1,6 +1,6 @@
 import type { AppProps } from 'next/app'
 import { State } from '@/app/types'
-import React, { SetStateAction, useEffect } from 'react'
+import React, { SetStateAction } from 'react'
 
 export const StateContext = React.createContext({
   state: {} as State,
@@ -10,9 +10,6 @@ export const StateContext = React.createContext({
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const [state, setState] = React.useState<State>({} as State)
-  useEffect(() => {
-    console.log(state)
-  }, [state])
 
   return (
     <StateContext.Provider value={{ state, setState }}>

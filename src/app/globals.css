@@ -166,9 +166,25 @@ button {
   cursor: pointer;
 }
 
+button:disabled {
+  background-image: none !important;
+  background: #ccc !important;
+  cursor: not-allowed;
+}
+
 button:hover {
   transform: scale(1.05);
   background-position: left center;
+}
+
+input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgb(241 101 3);
+    cursor: pointer;
 }
 
 .form-select {
