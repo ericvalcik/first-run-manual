@@ -8,7 +8,7 @@ const Step12 = () => {
 
   const runMotor = async () => {
     setDisabled(true)
-    fetch('localhost:8000/', {
+    fetch('http://localhost:8000/', {
       method: 'GET'
     }).then((res) => {
       // eslint-disable-next-line no-console
