@@ -26,13 +26,8 @@ const Step10 = () => {
   const router = useRouter()
   const [connState, setConnState] = useState<string>('')
   if (connState === 'loading') {
-    return (
-      <div className="mainCol">
-        <div className="spinner-border" role="status">
-          <span className="sr-only" />
-        </div>
-      </div>
-    )
+    // TODO implement spinner
+    return <div className="mainCol">Loading...</div>
   }
 
   const connectAndUpload = async () => {

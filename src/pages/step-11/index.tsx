@@ -15,11 +15,8 @@ const Step11 = () => {
 
   if (connState === 'loading') {
     return (
-      <div className="mainCol">
-        <div className="spinner-border" role="status">
-          <span className="sr-only" />
-        </div>
-      </div>
+      // TODO implement spinner
+      <div className="mainCol">loading...</div>
     )
   }
 

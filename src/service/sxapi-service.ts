@@ -25,7 +25,7 @@ export const SXApiService = {
     await axios.get(`${API_URL}/set?handle=${handle}&path=${path}&value=${value}`)
   },
   run: async (handle: string, speed: number) => {
-    await axios.get(`${API_URL}/exec?handle=${handle}&command=run&arg1=${speed}`)
+    await axios.get(`${API_URL}/exec?handle=${handle}&path=run&arg1=${speed}`)
   },
   exec: async (
     handle: string,
@@ -43,7 +43,7 @@ export const SXApiService = {
     await axios.get(url)
   },
   reboot: async (handle: string): Promise<NodeResponse> => {
-    await axios.get(`${API_URL}/exec?handle=${handle}&command=reboot&timeout=1000`)
+    await axios.get(`${API_URL}/exec?handle=${handle}&path=reboot&timeout=1000`)
     await sleep(15000)
     await SXApiService.search()
     return SXApiService.node()
