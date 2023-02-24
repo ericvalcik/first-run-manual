@@ -52,7 +52,9 @@ const Step10 = () => {
       await SXApiService.setVarValue(handle, 'driver/limiter/mtemplo', state.mtemplo)
       await SXApiService.setVarValue(handle, 'driver/iref', state.iref)
       await SXApiService.exec(handle, 'save', '-y')
-      await SXApiService.reboot(handle)
+      const { handle: newHandle } = await SXApiService.reboot(handle)
+      state.handle = newHandle
+      setState(state)
       await router.push('/step-11')
     } catch (e) {
       setConnState('error')

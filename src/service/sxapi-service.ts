@@ -3,6 +3,8 @@ import axios from 'axios'
 
 const API_URL = 'http://localhost:28945'
 
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
+
 export const SXApiService = {
   search: async () => {
     await axios.get(`${API_URL}/search`)
@@ -22,10 +24,8 @@ export const SXApiService = {
   setVarValue: async (handle: string, path: string, value: any) => {
     await axios.get(`${API_URL}/set?handle=${handle}&path=${path}&value=${value}`)
   },
-  run: (handle: string, speed: number) => {
-    // TODO implement
-    // eslint-disable-next-line no-console
-    console.log(`Rotating motor ${handle} at speed ${speed}`)
+  run: async (handle: string, speed: number) => {
+    await axios.get(`${API_URL}/exec?handle=${handle}&command=run&arg1=${speed}`)
   },
   exec: async (
     handle: string,
@@ -42,11 +42,10 @@ export const SXApiService = {
     }
     await axios.get(url)
   },
-  reboot: async (handle: string) => {
-    try {
-      await axios.get(`${API_URL}/exec?handle=${handle}&command=reboot&timeout=1000`)
-    } catch (e) {
-      //
-    }
+  reboot: async (handle: string): Promise<NodeResponse> => {
+    await axios.get(`${API_URL}/exec?handle=${handle}&command=reboot&timeout=1000`)
+    await sleep(15000)
+    await SXApiService.search()
+    return SXApiService.node()
   }
 }

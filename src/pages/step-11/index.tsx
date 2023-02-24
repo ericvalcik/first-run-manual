@@ -4,6 +4,7 @@ import React, { useContext, useState } from 'react'
 import { StateContext } from '@/pages/_app'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import { SXApiService } from '@/service/sxapi-service'
 
 const Step11 = () => {
   const { state } = useContext(StateContext)
@@ -23,19 +24,18 @@ const Step11 = () => {
   }
 
   const identifyMotor = async () => {
+    if (!state.handle) throw new Error('No handle')
     try {
       setConnState('loading')
-      // await exec('identlin');
+      await SXApiService.exec(state.handle, 'identlin')
       if (state.sensortype === 'sincos') {
-        // eslint-disable-next-line no-plusplus
-        for (let i = 0; i < 3; i++) {
-          // eslint-disable-next-line no-await-in-loop
-          // await exec('identrun');
-        }
+        await SXApiService.exec(state.handle, 'identrun')
+        await SXApiService.exec(state.handle, 'identrun')
+        await SXApiService.exec(state.handle, 'identrun')
       } else {
-        // await exec('identrun');
+        await SXApiService.exec(state.handle, 'identrun')
       }
-      // await exec('save -y');
+      await SXApiService.exec(state.handle, 'save', '-y')
       await router.push('/step-12')
     } catch (e) {
       setConnState('error')
