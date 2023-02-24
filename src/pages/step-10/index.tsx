@@ -1,12 +1,13 @@
 import '@/app/globals.css'
 
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import UsbConnector from '@/assets/images/usb-connector.png'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import Link from 'next/link'
+import { SXApiService } from '@/service/sxapi-service'
+import { StateContext } from '@/pages/_app'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getPrest = (sensortype: string | undefined) => {
   switch (sensortype) {
     case 'hall':
@@ -19,7 +20,7 @@ const getPrest = (sensortype: string | undefined) => {
 }
 
 const Step10 = () => {
-  // const { state } = useContext(StateContext)
+  const { state, setState } = useContext(StateContext)
 
   // navigation
   const router = useRouter()
@@ -37,18 +38,21 @@ const Step10 = () => {
   const connectAndUpload = async () => {
     setConnState('loading')
     try {
-      // TODO implement
-      // await set('driver/prest', getPrest(state.sensortype))
-      // await set('driver/limiter/ibneg', state.ibneg)
-      // await set('driver/limiter/ibpos', state.ibpos)
-      // await set('driver/limiter/ubmax', state.ubmax)
-      // await set('driver/limiter/ubmin', state.ubmin)
-      // await set('driver/motor/pp', state.pp)
-      // await set('driver/limiter/mtemphi', state.mtemphi)
-      // await set('driver/limiter/mtemplo', state.mtemplo)
-      // await set('driver/iref', state.iref)
-      // await exec('save -y')
-      // await reboot()
+      await SXApiService.search()
+      const { handle } = await SXApiService.node()
+      state.handle = handle
+      setState(state)
+      await SXApiService.setVarValue(handle, 'driver/prest', getPrest(state.sensortype))
+      await SXApiService.setVarValue(handle, 'driver/limiter/ibneg', state.ibneg)
+      await SXApiService.setVarValue(handle, 'driver/limiter/ibpos', state.ibpos)
+      await SXApiService.setVarValue(handle, 'driver/limiter/ubmax', state.ubmax)
+      await SXApiService.setVarValue(handle, 'driver/limiter/ubmin', state.ubmin)
+      await SXApiService.setVarValue(handle, 'driver/motor/pp', state.pp)
+      await SXApiService.setVarValue(handle, 'driver/limiter/mtemphi', state.mtemphi)
+      await SXApiService.setVarValue(handle, 'driver/limiter/mtemplo', state.mtemplo)
+      await SXApiService.setVarValue(handle, 'driver/iref', state.iref)
+      await SXApiService.exec(handle, 'save', '-y')
+      await SXApiService.reboot(handle)
       await router.push('/step-11')
     } catch (e) {
       setConnState('error')

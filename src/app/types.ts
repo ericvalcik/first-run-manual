@@ -8,4 +8,5 @@ export type State = {
   ubmax?: number
   ibpos?: number
   ibneg?: number
+  handle?: string
 }

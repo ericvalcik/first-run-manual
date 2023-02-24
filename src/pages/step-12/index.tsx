@@ -1,8 +1,11 @@
 import '@/app/globals.css'
 
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { SXApiService } from '@/service/sxapi-service'
+import { StateContext } from '@/pages/_app'
 
 const Step12 = () => {
+  const { state } = useContext(StateContext)
   const [value, setValue] = useState<number>(0)
   const [disabled, setDisabled] = useState<boolean>(false)
 
@@ -17,16 +20,18 @@ const Step12 = () => {
     setTimeout(() => {
       setDisabled(false)
     }, 1000)
+
+    if (!state.handle) {
+      throw new Error('No handle')
+    }
     try {
       if (value === 0) {
-        // TODO motor stuff
-        // await exec('stop');
+        await SXApiService.exec(state.handle, 'stop')
       } else {
-        // await run(value);
+        await SXApiService.run(state.handle, value)
       }
     } catch (e) {
       // TODO handle error
-      // console.log(e)
     }
   }
 
