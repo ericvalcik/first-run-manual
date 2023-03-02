@@ -38,10 +38,12 @@ export const SXApiService = {
   exec: async (
     handle: string,
     command: string,
-    arg1: string | undefined = undefined,
-    arg2: string | undefined = undefined
+    { timeout, arg1, arg2 }: { timeout?: number; arg1?: string; arg2?: string } = {}
   ) => {
     let url = `${API_URL}/exec?handle=${handle}&path=${command}`
+    if (timeout) {
+      url += `&timeout=${timeout}`
+    }
     if (arg1) {
       url += `&arg1=${arg1}`
     }
@@ -51,8 +53,8 @@ export const SXApiService = {
     await axios.get(url)
   },
   reboot: async (handle: string): Promise<NodeResponse> => {
-    await axios.get(`${API_URL}/exec?handle=${handle}&path=reboot`)
-    await sleep(15000)
+    await axios.get(`${API_URL}/exec?handle=${handle}&path=reboot&timeout=100`)
+    await sleep(5000)
     await SXApiService.search()
     return SXApiService.node()
   }

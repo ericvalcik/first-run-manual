@@ -30,16 +30,16 @@ const Step11 = () => {
       await SXApiService.exec(state.handle, 'identlin')
       await sleep(3000)
       if (state.sensortype === 'sincos') {
-        await SXApiService.exec(state.handle, 'identrun')
+        await SXApiService.exec(state.handle, 'identrun', { timeout: 3000 })
         await sleep(3000)
-        await SXApiService.exec(state.handle, 'identrun')
+        await SXApiService.exec(state.handle, 'identrun', { timeout: 3000 })
         await sleep(3000)
-        await SXApiService.exec(state.handle, 'identrun')
+        await SXApiService.exec(state.handle, 'identrun', { timeout: 3000 })
       } else {
-        await SXApiService.exec(state.handle, 'identrun')
+        await SXApiService.exec(state.handle, 'identrun', { timeout: 3000 })
       }
       await sleep(3000)
-      await SXApiService.exec(state.handle, 'save', '-y')
+      await SXApiService.exec(state.handle, 'save', { arg1: '-y' })
       await router.push('/step-12')
     } catch (e) {
       setConnState('error')
