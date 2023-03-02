@@ -6,6 +6,14 @@ const API_URL = 'http://localhost:28945'
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
 export const SXApiService = {
+  checkConnection: async (): Promise<boolean> => {
+    try {
+      const response = await axios.get(`${API_URL}`)
+      return response.status === 200
+    } catch (e) {
+      return false
+    }
+  },
   search: async () => {
     await axios.get(`${API_URL}/search`)
   },
@@ -43,7 +51,7 @@ export const SXApiService = {
     await axios.get(url)
   },
   reboot: async (handle: string): Promise<NodeResponse> => {
-    await axios.get(`${API_URL}/exec?handle=${handle}&path=reboot&timeout=1000`)
+    await axios.get(`${API_URL}/exec?handle=${handle}&path=reboot`)
     await sleep(15000)
     await SXApiService.search()
     return SXApiService.node()

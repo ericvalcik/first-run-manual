@@ -31,7 +31,7 @@ const Step4 = () => {
     state.mtemplo = data.mtemplo ?? undefined
     state.mtemphi = data.mtemphi ?? undefined
     setState(state)
-    if (state.sensortype === 'sensorless' && state.mtemplo === 0) {
+    if (state.sensortype === 'sensorless' && !state.mtemplo) {
       router.push('/step-6')
     } else {
       router.push('/step-5')
