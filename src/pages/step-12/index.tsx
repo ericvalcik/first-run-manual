@@ -1,6 +1,6 @@
 import '@/app/globals.css'
 
-import { useContext, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { SXApiService } from '@/service/sxapi-service'
 import { StateContext } from '@/pages/_app'
 
@@ -11,12 +11,6 @@ const Step12 = () => {
 
   const runMotor = async () => {
     setDisabled(true)
-    fetch('http://localhost:8000/', {
-      method: 'GET'
-    }).then((res) => {
-      // eslint-disable-next-line no-console
-      res.json().then((data) => console.log(data))
-    })
     setTimeout(() => {
       setDisabled(false)
     }, 1000)
@@ -30,6 +24,17 @@ const Step12 = () => {
       } else {
         await SXApiService.run(state.handle, value)
       }
+    } catch (e) {
+      // TODO handle error
+    }
+  }
+
+  const stopMotor = async () => {
+    if (!state.handle) {
+      throw new Error('No handle')
+    }
+    try {
+      await SXApiService.exec(state.handle, 'stop')
     } catch (e) {
       // TODO handle error
     }
@@ -62,9 +67,17 @@ const Step12 = () => {
         <div className="col-3" style={{ height: '100%', alignSelf: 'center' }}>
           <p className="subtitle">{Math.round(value * 100)} %</p>
         </div>
-        <div className="col-3">
-          <button type="button" onClick={runMotor} className="mt-6" disabled={disabled}>
+        <div className="flex mt-8">
+          <button
+            style={{ alignSelf: 'flex-end', marginRight: '40px' }}
+            type="button"
+            onClick={runMotor}
+            disabled={disabled}
+          >
             Run motor
+          </button>
+          <button style={{ alignSelf: 'flex-end', marginRight: '40px' }} type="button" onClick={stopMotor}>
+            STOP
           </button>
         </div>
       </div>
