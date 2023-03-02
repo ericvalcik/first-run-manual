@@ -6,6 +6,9 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { SXApiService } from '@/service/sxapi-service'
 
+// TODO remove
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
+
 const Step11 = () => {
   const { state } = useContext(StateContext)
   const [connState, setConnState] = useState('')
@@ -25,13 +28,17 @@ const Step11 = () => {
     try {
       setConnState('loading')
       await SXApiService.exec(state.handle, 'identlin')
+      await sleep(3000)
       if (state.sensortype === 'sincos') {
         await SXApiService.exec(state.handle, 'identrun')
+        await sleep(3000)
         await SXApiService.exec(state.handle, 'identrun')
+        await sleep(3000)
         await SXApiService.exec(state.handle, 'identrun')
       } else {
         await SXApiService.exec(state.handle, 'identrun')
       }
+      await sleep(3000)
       await SXApiService.exec(state.handle, 'save', '-y')
       await router.push('/step-12')
     } catch (e) {

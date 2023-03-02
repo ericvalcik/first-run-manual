@@ -33,7 +33,7 @@ export const SXApiService = {
     arg1: string | undefined = undefined,
     arg2: string | undefined = undefined
   ) => {
-    let url = `${API_URL}/exec?handle=${handle}&command=${command}`
+    let url = `${API_URL}/exec?handle=${handle}&path=${command}`
     if (arg1) {
       url += `&arg1=${arg1}`
     }
