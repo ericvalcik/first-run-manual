@@ -7,6 +7,7 @@ import { StateContext } from '@/pages/_app'
 const Step12 = () => {
   const { state } = useContext(StateContext)
   const [value, setValue] = useState<number>(0)
+  const [running, setRunning] = useState<boolean>(false)
   const [disabled, setDisabled] = useState<boolean>(false)
 
   const runMotor = async () => {
@@ -21,8 +22,10 @@ const Step12 = () => {
     try {
       if (value === 0) {
         await SXApiService.exec(state.handle, 'stop')
+        setRunning(false)
       } else {
         await SXApiService.run(state.handle, value)
+        setRunning(true)
       }
     } catch (e) {
       // TODO handle error
@@ -35,6 +38,8 @@ const Step12 = () => {
     }
     try {
       await SXApiService.exec(state.handle, 'stop')
+      setValue(0)
+      setRunning(false)
     } catch (e) {
       // TODO handle error
     }
@@ -61,6 +66,7 @@ const Step12 = () => {
             step="0.01"
             id="commandRange"
             defaultValue="0"
+            value={value}
             onChange={(e) => setValue(e.target.valueAsNumber)}
           />
         </div>
@@ -76,9 +82,11 @@ const Step12 = () => {
           >
             Run motor
           </button>
-          <button style={{ alignSelf: 'flex-end', marginRight: '40px' }} type="button" onClick={stopMotor}>
-            STOP
-          </button>
+          {running ? (
+            <button style={{ alignSelf: 'flex-end', marginRight: '40px' }} type="button" onClick={stopMotor}>
+              STOP
+            </button>
+          ) : null}
         </div>
       </div>
     </div>
