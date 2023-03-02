@@ -33,6 +33,7 @@ export const SXApiService = {
     await axios.get(`${API_URL}/set?handle=${handle}&path=${path}&value=${value}`)
   },
   run: async (handle: string, speed: number) => {
+    // running in mode 3 with imult 0.1
     await axios.get(`${API_URL}/exec?handle=${handle}&path=run&arg1=${speed}&arg2=3&arg3=0.1`)
   },
   exec: async (
