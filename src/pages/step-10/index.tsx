@@ -46,7 +46,7 @@ const Step10 = () => {
       await SXApiService.setVarValue(handle, 'driver/limiter/mtemphi', state.mtemphi)
       await SXApiService.setVarValue(handle, 'driver/limiter/mtemplo', state.mtemplo)
       await SXApiService.setVarValue(handle, 'driver/iref', state.iref)
-      await SXApiService.exec(handle, 'save', '-y')
+      await SXApiService.exec(handle, 'save', { arg1: '-y' })
       const { handle: newHandle } = await SXApiService.reboot(handle)
       state.handle = newHandle
       setState(state)
